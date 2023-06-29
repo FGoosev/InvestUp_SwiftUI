@@ -11,73 +11,60 @@ struct SignUp: View {
         @ObservedObject var viewModel = RegistrationViewModel()
         var body: some View{
             NavigationView{
-                ZStack(alignment: .bottom){
+                VStack{
                     VStack{
-                        VStack{
-                            Text("Регистрация")
-                                .foregroundColor(.black)
-                                .font(.title)
-                                .fontWeight(.bold)
-                        }
-                        VStack{
-                            HStack(spacing: 15){
-                                Image(systemName: "eye.slash.fill")
-                                    .foregroundColor(Color("Color1"))
-                                TextField("Имя", text: self.$viewModel.model.firstName)
-                                
-                            }
-                            Divider().background(Color.white.opacity(0.5))
-                        }
-                        .padding(.horizontal)
-                        .padding(.top, 30)
-                        VStack{
-                            HStack(spacing: 15){
-                                Image(systemName: "eye.slash.fill")
-                                    .foregroundColor(Color("Color1"))
-                                TextField("Фамилия", text: self.$viewModel.model.lastName)
-                                    .foregroundColor(.black)
-                                
-                            }
-                            Divider().background(Color.white.opacity(0.5))
-                        }
-                        .padding(.horizontal)
-                        .padding(.top, 30)
-                        
-                        VStack{
-                            HStack(spacing: 15){
-                                Image(systemName: "envelope.fill")
-                                    .foregroundColor(Color("Color1"))
-                                TextField("Email", text: self.$viewModel.model.email)
-                                
-                            }
-                            Divider().background(Color.white.opacity(0.5))
-                        }
-                        .padding(.horizontal)
-                        .padding(.top, 30)
-                        
-                        VStack{
-                            HStack(spacing: 15){
-                                Image(systemName: "eye.slash.fill")
-                                    .foregroundColor(Color("Color1"))
-                                SecureField("Пароль", text: self.$viewModel.model.password)
-                                
-                            }
-                            Divider().background(Color.white.opacity(0.5))
-                        }
-                        .padding(.horizontal)
-                        .padding(.top, 30)
-                        
-                        
-                        
+                        Text("Регистрация")
+                            .foregroundColor(.black)
+                            .font(.title)
+                            .fontWeight(.bold)
                     }
-                    .padding()
-                    .padding(.bottom, 35)
-                    .background(.white)
-                    .shadow(color: Color.black.opacity(0.3),radius: 5,x: 0,y: -5)
-                    .cornerRadius(35 )
-                    .padding(.horizontal,20)
+                    VStack{
+                        HStack(spacing: 15){
+                            Image(systemName: "eye.slash.fill")
+                                .foregroundColor(Color("Color1"))
+                            TextField("Имя", text: self.$viewModel.model.firstName)
+                            
+                        }
+                        Divider().background(Color.white.opacity(0.5))
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 30)
+                    VStack{
+                        HStack(spacing: 15){
+                            Image(systemName: "eye.slash.fill")
+                                .foregroundColor(Color("Color1"))
+                            TextField("Фамилия", text: self.$viewModel.model.lastName)
+                                .foregroundColor(.black)
+                            
+                        }
+                        Divider().background(Color.white.opacity(0.5))
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 30)
                     
+                    VStack{
+                        HStack(spacing: 15){
+                            Image(systemName: "envelope.fill")
+                                .foregroundColor(Color("Color1"))
+                            TextField("Email", text: self.$viewModel.model.email)
+                            
+                        }
+                        Divider().background(Color.white.opacity(0.5))
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 30)
                     
+                    VStack{
+                        HStack(spacing: 15){
+                            Image(systemName: "eye.slash.fill")
+                                .foregroundColor(Color("Color1"))
+                            SecureField("Пароль", text: self.$viewModel.model.password)
+                            
+                        }
+                        Divider().background(Color.white.opacity(0.5))
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 30)
                     Button(action:{
                         viewModel.register()
                     }){
@@ -91,8 +78,16 @@ struct SignUp: View {
                         
                             .shadow(color: Color.white.opacity(0.1), radius: 5, x: 0, y: 5)
                     }
-                    .offset(y: 25)
+                    .padding(.top, 15)
+                    
+                    
                 }
+                .padding()
+                .padding(.bottom, 35)
+                .background(.white)
+                .shadow(color: Color.black.opacity(0.3),radius: 5,x: 0,y: -5)
+                .cornerRadius(35 )
+                .padding(.horizontal,20)
             }
             
         }

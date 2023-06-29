@@ -14,3 +14,4 @@ struct AppManager{
         return LocalStorage.current.status ?? false
     }
 }
+

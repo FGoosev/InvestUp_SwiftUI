@@ -14,6 +14,10 @@ struct UserModel:Codable,Identifiable{
     var isConfirmedEmail: Bool
     var firstName: String
     var lastName: String
+    var updatedAt: String
+    var createdAt: String
+    var avatar: String?
+    var status: String
     var roles: [RoleModel]
 }
 

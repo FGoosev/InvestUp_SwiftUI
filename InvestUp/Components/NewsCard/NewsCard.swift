@@ -42,9 +42,10 @@ struct NewsCard: View {
                 
             }
             .frame(width: 150, height: 150)
-            .background(Color("lightGray"))
-            .shadow(color: Color("lightGray").opacity(0.3), radius: 20, x: 0, y: 20)
-        .cornerRadius(10)
+            .background()
+            .cornerRadius(10)
+            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 5)
+            
         }
         
     }

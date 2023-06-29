@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @State var selectTab = "Home"
-    let tabs = ["Home","Blog","Messenger","Profile"]
+    @State var selectTab = "Главная"
+    @ObservedObject var vm = PersonalInfoViewModel()
+    let tabs = ["Главная","Избранное","Чаты","Профиль"]
     init(){
         UITabBar.appearance().isHidden = true
     }
@@ -17,22 +18,22 @@ struct TabBarView: View {
         ZStack(alignment: .bottom){
             TabView(selection: $selectTab){
                 MainView()
-                    .tag("Home")
+                    .tag("Главная")
                 
-                Text("Blog")
-                    .tag("Blog")
+                FavoritesView()
+                    .tag("Избранное")
                 
-                Text("Messanger")
-                    .tag("Messenger")
+                Chats()
+                    .tag("Чаты")
                 PersonalAreaView()
-                    .tag("Profile")
+                    .tag("Профиль")
                     
                 
             }
             HStack{
                 ForEach(tabs, id: \.self){ tab in
                     Spacer()
-                    TabBarItem(tab: tab, selected: $selectTab)
+                    TabBarItem(tab: tab, imageUrl: vm.user.avatar ?? "", selected: $selectTab)
                     Spacer()
                 }
                 
@@ -48,44 +49,75 @@ struct TabBarView: View {
 
 struct TabBarItem: View{
     @State var tab: String
+    @State var imageUrl: String = ""
     @Binding var selected: String
     var body: some View{
-        if tab == "Profile"{
-            Button(action: {
-                selected = tab
-            }){
-                ZStack{
-                    ProfileImage()
-                        .frame(width: 68, height: 68)
+        
+        ZStack{
+            Button(action:{
+                withAnimation(.spring()){
+                    selected = tab
                 }
-            }
-        }else{
-            ZStack{
-                Button(action:{
-                    withAnimation(.spring()){
-                        selected = tab
+                
+            }){
+                HStack{
+                    Image(tab)
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                    if(selected == tab){
+                    
+                        Text(tab)
+                            .font(.system(size: 14))
+                            .foregroundColor(.black)
                     }
                     
-                }){
-                    HStack{
-                        Image(tab)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        if(selected == tab){
-                            Text(tab)
-                                .font(.system(size: 14))
-                                .foregroundColor(.black)
-                        }
-                        
-                    }
                 }
             }
-            .opacity(selected == tab ? 1 : 0.7)
-            .padding(.vertical, 10)
-            .padding(.horizontal, 17)
-            .background(selected == tab ? .white : Color("lightGray"))
-            .clipShape(Capsule())
         }
+        .opacity(selected == tab ? 1 : 0.7)
+        .padding(.vertical, 10)
+        .padding(.horizontal, 17)
+        .background(selected == tab ? .white : Color("lightGray"))
+        .clipShape(Capsule())
+        
+//        if tab == "Профиль"{
+//            Button(action: {
+//                selected = tab
+//            }){
+//                ZStack{
+//                    Image(tab)
+//                        .resizable()
+//                        .frame(width: 20, height: 20)
+//                }
+//            }
+//        }else{
+//            ZStack{
+//                Button(action:{
+//                    withAnimation(.spring()){
+//                        selected = tab
+//                    }
+//
+//                }){
+//                    HStack{
+//                        Image(tab)
+//                            .resizable()
+//                            .frame(width: 20, height: 20)
+//                        if(selected == tab){
+//
+//                            Text(tab)
+//                                .font(.system(size: 14))
+//                                .foregroundColor(.black)
+//                        }
+//
+//                    }
+//                }
+//            }
+//            .opacity(selected == tab ? 1 : 0.7)
+//            .padding(.vertical, 10)
+//            .padding(.horizontal, 17)
+//            .background(selected == tab ? .white : Color("lightGray"))
+//            .clipShape(Capsule())
+//        }
         
     }
 }

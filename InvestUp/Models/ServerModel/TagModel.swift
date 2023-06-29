@@ -8,7 +8,12 @@
 import Foundation
 
 
-struct TagModel: Codable, Identifiable{
+struct TagModel: Codable, Identifiable,Equatable{
+    var id =   UUID()
+    var value: String
+}
+
+struct TagServer: Codable, Identifiable,Equatable{
     var id: String
     var value: String
 }

@@ -27,25 +27,28 @@ final class RegistrationViewModel: ObservableObject{
         ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
-        let task = URLSession.shared.dataTask(with: request){ data, _, error in
-            guard let data = data, error == nil else{
-                return
-            }
-            do {
-                let response = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
-                let accessToken = response?["accessToken"] as? String ?? ""
-                if(accessToken == ""){
-                    print("Данные введены некорректно")
-                }else{
-                    LocalStorage.current.token = accessToken
-                    LocalStorage.current.status = true
-                    AppManager.Auth.send(true)
+        let task = URLSession.shared.dataTask(with: request){ [weak self] data, _, error in
+            DispatchQueue.main.async{
+                guard let data = data, error == nil else{
+                    return
                 }
+                do {
+                    let response = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                    let accessToken = response?["accessToken"] as? String ?? ""
+                    if(accessToken == ""){
+                        print("Данные введены некорректно")
+                    }else{
+                        LocalStorage.current.token = accessToken
+                        LocalStorage.current.status = true
+                        AppManager.Auth.send(true)
+                    }
+                    
                 
-            
-            }catch{
-                print(error)
+                }catch{
+                    print(error)
+                }
             }
+            
         }
         task.resume()
     }
